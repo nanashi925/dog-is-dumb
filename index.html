@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>犬はアホです</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+      color: white;
+      font-family: "Arial", sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 5em;
+      margin-top: 1em;
+      text-shadow: 0 0 20px red;
+      animation: pulse 2s infinite;
+    }
+
+    button {
+      font-size: 1.5em;
+      padding: 0.5em 1em;
+      margin: 2em auto;
+      border: none;
+      background: white;
+      color: black;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px white;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 3em;
+      margin: 2em auto;
+      width: 80%;
+      border-radius: 20px;
+      box-shadow: 0 0 30px white;
+      display: none;
+    }
+
+    p {
+      font-size: 1.5em;
+      line-height: 2em;
+      margin: 1em 0;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg) scale(1); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { text-shadow: 0 0 20px red; }
+      50% { text-shadow: 0 0 40px yellow; }
+    }
+
+    .dog {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border: 5px solid white;
+      border-radius: 20px;
+      animation: spin 10s linear infinite;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>犬はアホです</h1>
+
+  <button onclick="document.querySelector('.content').style.display='block'">
+    犬の真実を見る
+  </button>
+
+  <div class="content">
+    <p>それは生まれながらにして、走り、転び、吠え、食べる存在。</p>
+    <p>靴下を喰らい、ティッシュを飲み込み、知らぬ間に大地へしっこを刻む者。</p>
+    <p>食ってはいけぬチョコレートすら「うまい」と言わんばかりに咀嚼するその姿、<br>
+    まさに、知性と本能のはざまで輝く四足の彗星。</p>
+    <p>人類が星を目指す時代にあって、<br>
+    彼らはなぜかいつまでもしっぽを追い続けて回る。</p>
+    <p>犬に未来は見えていない。<br>
+    しかし、今この瞬間に全力で生きている。</p>
+    <p>尻を振り、鼻を鳴らし、愛をばら撒きながらうんこをする。<br>
+    君が怒っていても関係ない。<br>
+    なぜなら犬はもう、カーペットにやってしまった後なのだから。</p>
+    <p>それでもいい。<br>
+    犬は、世界で最もアホで、最も愛おしい生命体である。</p>
+  </div>
+
+  <!-- 回転する犬たち -->
+  <script>
+    const dogURL = "https://i.postimg.cc/NGVg2Mg3/IMG-0691.jpg";
+
+    for (let i = 0; i < 20; i++) {
+      const img = document.createElement("img");
+      img.src = dogURL;
+      img.className = "dog";
+      img.style.top = Math.random() * 100 + "vh";
+      img.style.left = Math.random() * 100 + "vw";
+      img.style.animationDuration = (5 + Math.random() * 10) + "s";
+      img.style.zIndex = Math.floor(Math.random() * 5);
+      document.body.appendChild(img);
+    }
+  </script>
+
+</body>
+</html>
