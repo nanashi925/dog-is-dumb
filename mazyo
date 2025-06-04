@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>地獄絵図：リミックス背景＋ハートカオスVer.2</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: url('https://i.postimg.cc/wM4NcCkj/remix-75c3549f-980b-4f40-b461-837b2e9983b2.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    .sparkle::before {
+      content: "";
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: white;
+      box-shadow: 
+        100px 200px white,
+        500px 100px white,
+        300px 400px white,
+        700px 250px white,
+        800px 600px white,
+        1200px 300px white;
+      animation: twinkle 2s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.3; }
+      to { opacity: 1; }
+    }
+
+    .image {
+      position: absolute;
+      will-change: transform;
+      animation: chaos 5s infinite linear;
+    }
+
+    @keyframes chaos {
+      0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+      }
+      25% {
+        transform: translate(300px, -200px) rotate(90deg) scale(1.2);
+      }
+      50% {
+        transform: translate(-200px, 400px) rotate(180deg) scale(0.8);
+      }
+      75% {
+        transform: translate(100px, -100px) rotate(270deg) scale(1.5);
+      }
+      100% {
+        transform: translate(0, 0) rotate(360deg) scale(1);
+      }
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      transform: rotate(45deg);
+      animation: float 5s linear forwards;
+      opacity: 1;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50px, -100px) rotate(45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sparkle"></div>
+
+  <script>
+    const imgSources = [
+      'https://i.postimg.cc/T1J7d3GH/IMG-0712.jpg',
+      'https://i.postimg.cc/bNqV6k9X/IMG-0713.jpg'
+    ];
+
+    const createChaosImage = () => {
+      const img = document.createElement('img');
+      img.src = imgSources[Math.floor(Math.random() * imgSources.length)];
+      img.className = 'image';
+      const size = Math.random() * 200 + 100;
+      img.style.width = `${size}px`;
+      img.style.top = `${Math.random() * window.innerHeight}px`;
+      img.style.left = `${Math.random() * window.innerWidth}px`;
+      img.style.animationDuration = `${Math.random() * 5 + 3}s`;
+      document.body.appendChild(img);
+    };
+
+    for (let i = 0; i < 30; i++) {
+      createChaosImage();
+    }
+
+    // 爆発エフェクト
+    setInterval(() => {
+      const boom = document.createElement('div');
+      boom.style.position = 'absolute';
+      boom.style.top = `${Math.random() * window.innerHeight}px`;
+      boom.style.left = `${Math.random() * window.innerWidth}px`;
+      boom.style.width = '20px';
+      boom.style.height = '20px';
+      boom.style.borderRadius = '50%';
+      boom.style.background = 'red';
+      boom.style.boxShadow = '0 0 30px orange, 0 0 60px yellow';
+      boom.style.opacity = '1';
+      boom.style.transition = 'transform 0.5s, opacity 1s';
+      document.body.appendChild(boom);
+      setTimeout(() => {
+        boom.style.transform = 'scale(5)';
+        boom.style.opacity = '0';
+      }, 10);
+      setTimeout(() => {
+        boom.remove();
+      }, 1000);
+    }, 700);
+
+    // ハートエフェクト（画面全体にランダム配置）
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = `${Math.random() * window.innerWidth}px`;
+      heart.style.top = `${Math.random() * window.innerHeight}px`;
+      heart.style.background = Math.random() > 0.5 ? 'pink' : 'hotpink';
+      document.body.appendChild(heart);
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }, 200); // ハート生成の頻度を少し上げた
+  </script>
+</body>
+</html>
